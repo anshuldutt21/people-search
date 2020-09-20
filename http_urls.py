@@ -1,9 +1,16 @@
 from django.urls import path
 
-from people_search.views.hello_world import HelloWorld
+from rest_framework import routers
+
+from people_search.views.student_search import StudentSearch
 
 app_name = 'people_search'
+router = routers.DefaultRouter()
+
+router.register(r'',StudentSearch,basename="student_search")
 
 urlpatterns = [
-    path('', HelloWorld.as_view(), name='hello_world'),
+
 ]
+
+urlpatterns += router.urls
