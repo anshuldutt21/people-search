@@ -9,9 +9,10 @@ class Profile(models.Model):
     Model for checking which fields are public to 
     which set of people
     """
-    person = models.ForeignKey(
-        to = swapper.get_model_name('kernel','Person'),
-        on_delete = models.CASCADE
+    student = models.ForeignKey(
+        to = swapper.get_model_name('kernel','Student'),
+        on_delete = models.CASCADE,
+        unique = True
     )
     
     primary_email_id = models.CharField(max_length = 20, choices = public_to_filters, default = 'all')

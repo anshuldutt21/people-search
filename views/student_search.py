@@ -25,7 +25,12 @@ class StudentSearch(viewsets.ModelViewSet):
         query = self.request.query_params.get('query',None)
         print(query)
         if(query!=None):
-            results = Profile.objects.filter(Q(person__full_name__icontains=query))
+            results = Profile.objects.filter(Q(student__person__full_name__icontains=query) | 
+                                             Q(student__enrolment_number__icontains = query) | 
+                                             Q(student__current_year__icontains = query) |
+                                             Q(student__branch__name__icontains = query) | 
+                                             Q(student__person__contact_information__email_address__icontains = query)
+                                             )
             return results
         else:
             return Profile.objects.all()
