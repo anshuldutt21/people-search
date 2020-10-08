@@ -12,7 +12,8 @@ class Profile(models.Model):
     student = models.ForeignKey(
         to = swapper.get_model_name('kernel','Student'),
         on_delete = models.CASCADE,
-        unique = True
+        unique = True,
+        related_name = 'people_search_student'
     )
     
     primary_email_id = models.CharField(max_length = 20, choices = public_to_filters, default = 'all')
