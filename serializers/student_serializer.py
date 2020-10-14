@@ -88,7 +88,7 @@ class StudentSerializer(serializers.ModelSerializer):
         try:
             if(has_bhawan_permission(self.context['request'], instance)):
                 return {
-                    ResidentialInformation.objects.get(person = instance.student.person).residence.name
+                    ResidentialInformation.objects.get(person = instance.student.person).residence.code
                 }
 
         except (ResidentialInformation.DoesNotExist, TypeError) as error:
