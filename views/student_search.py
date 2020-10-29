@@ -25,10 +25,12 @@ class StudentSearch(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = StudentFilter
+    lookup_field = 'student__enrolment_number'
     
     def get_queryset(self):
         
         query = self.request.query_params.get('query',None)
+        print(self.request.session)
 
         if((query!=None)):
             
