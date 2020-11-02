@@ -15,6 +15,7 @@ FacultyMember = swapper.load_model('kernel', 'FacultyMember')
 
 class FacultySearch(viewsets.ModelViewSet):
     serializer_class = FacultySerializer
+    lookup_field = 'employee_id'
     
     def get_queryset(self):
 
