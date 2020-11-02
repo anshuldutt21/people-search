@@ -43,6 +43,11 @@ class StudentSerializer(serializers.ModelSerializer):
         
     email_address = serializers.SerializerMethodField()
     
+    display_picture = serializers.ImageField(
+        source='student.person.display_picture',
+        read_only=True
+    )
+    
     def get_email_address(self, instance):        
         try:
             if(has_email_permission(self.context['request'], instance)):
@@ -75,9 +80,7 @@ class StudentSerializer(serializers.ModelSerializer):
     def get_room_no_information(self, instance):
         try:
             if(has_room_no_permission(self.context['request'], instance)) and (has_bhawan_permission(self.context['request'], instance)):
-                return {
-                    ResidentialInformation.objects.get(person = instance.student.person).room_number
-                }
+                return ResidentialInformation.objects.get(person = instance.student.person).room_number
 
         except (ResidentialInformation.DoesNotExist, TypeError) as error:
             return None
@@ -87,9 +90,7 @@ class StudentSerializer(serializers.ModelSerializer):
     def get_bhawan_information(self, instance):
         try:
             if(has_bhawan_permission(self.context['request'], instance)):
-                return {
-                    ResidentialInformation.objects.get(person = instance.student.person).residence.code
-                }
+                return ResidentialInformation.objects.get(person = instance.student.person).residence.code
 
         except (ResidentialInformation.DoesNotExist, TypeError) as error:
             return None
@@ -109,5 +110,6 @@ class StudentSerializer(serializers.ModelSerializer):
             'interests',
             'mobile_number',
             'room_no_information',
-            'bhawan_information'
+            'bhawan_information',
+            'display_picture'
         ]
