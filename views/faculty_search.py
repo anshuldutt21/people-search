@@ -19,6 +19,7 @@ class FacultySearch(viewsets.ModelViewSet):
     serializer_class = FacultySerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = FacultyFilter
+    lookup_field = 'employee_id'
     
     def get_queryset(self):
 

@@ -17,14 +17,20 @@ class FacultySerializer(BaseSerializer):
         read_only=True,
     )
 
+    display_picture = serializers.ImageField(
+        source='person.display_picture',
+        read_only=True
+    )
+
     class Meta:
         model = FacultyMember
 
         fields = [
-            'id',
+            'employee_id',
             'name',
             'department',
             'designation',
             'entity_content_type',
             'entity_object_id',
+            'display_picture'
         ]
