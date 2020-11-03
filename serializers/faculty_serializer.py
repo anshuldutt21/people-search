@@ -25,4 +25,6 @@ class FacultySerializer(BaseSerializer):
             'name',
             'department',
             'designation',
+            'entity_content_type',
+            'entity_object_id',
         ]

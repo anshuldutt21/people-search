@@ -2,6 +2,7 @@ import swapper
 from itertools import chain
 
 from django.db.models import Q
+from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import generics
 from rest_framework import status
@@ -10,11 +11,14 @@ from rest_framework import viewsets
 from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND
 
 from people_search.serializers.faculty_serializer import FacultySerializer
+from people_search.utils.faculty_filters import FacultyFilter
 
 FacultyMember = swapper.load_model('kernel', 'FacultyMember')
 
 class FacultySearch(viewsets.ModelViewSet):
     serializer_class = FacultySerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = FacultyFilter
     
     def get_queryset(self):
 

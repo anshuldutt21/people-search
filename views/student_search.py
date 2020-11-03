@@ -65,7 +65,6 @@ class StudentSearch(viewsets.ModelViewSet):
                 if((_ not in result_matches) and (has_bhawan_permission(self.request, _))):
                     result_matches |= Profile.objects.filter(student = student_id)
                     
-            # print(result_matches)
             return result_matches
         else:
             return Profile.objects.all()
