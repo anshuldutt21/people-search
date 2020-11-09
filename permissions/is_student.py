@@ -3,6 +3,7 @@ from rest_framework import permissions
 from kernel.managers.get_role import get_role
 from formula_one.mixins.period_mixin import ActiveStatus
 
+
 def get_is_student(obj):
     """
     Checks if the authenticated user is a student or not

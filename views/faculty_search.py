@@ -15,17 +15,19 @@ from people_search.utils.faculty_filters import FacultyFilter
 
 FacultyMember = swapper.load_model('kernel', 'FacultyMember')
 
+
 class FacultySearch(viewsets.ModelViewSet):
     serializer_class = FacultySerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = FacultyFilter
     lookup_field = 'employee_id'
-    
+
     def get_queryset(self):
 
         query = self.request.query_params.get('query', None)
-        if(query!=None):
-            results = FacultyMember.objects.filter(Q(person__full_name__icontains=query))
+        if(query is not None):
+            results = FacultyMember.objects.filter(
+                Q(person__full_name__icontains=query))
             return results
         else:
             return FacultyMember.objects.all()

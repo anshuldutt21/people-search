@@ -12,15 +12,17 @@ FacultyMember = swapper.load_model('kernel', 'FacultyMember')
 Centre = swapper.load_model('shell', 'Centre')
 Department = swapper.load_model('shell', 'Department')
 
+
 class FacultyFilter(django_filters.FilterSet):
-    department = django_filters.CharFilter(field_name='department', method = 'custom_filter')
-    designation = django_filters.CharFilter(field_name = 'designation')
-    
+    department = django_filters.CharFilter(
+        field_name='department', method='custom_filter')
+    designation = django_filters.CharFilter(field_name='designation')
+
     class Meta:
         model = FacultyMember
         fields = [
-                'department', 'designation'
-                ]
+            'department', 'designation'
+        ]
 
     def custom_filter(self, queryset, name, value):
         faculties = FacultyMember.objects.all()
@@ -29,20 +31,22 @@ class FacultyFilter(django_filters.FilterSet):
         for faculty in faculties:
             if faculty.entity_content_type.name == 'centre':
                 try:
-                    centre_id = Centre.objects.get(code = value).id
+                    centre_id = Centre.objects.get(code=value).id
                     if(centre_id == faculty.entity_object_id):
-                        updated_queryset |= FacultyMember.objects.filter(id=faculty.id)
-                
-                except:
+                        updated_queryset |= FacultyMember.objects.filter(
+                            id=faculty.id)
+
+                except BaseException:
                     continue
-                    
+
             elif faculty.entity_content_type.name == 'department':
                 try:
-                    dept_id = Department.objects.get(code = value).id
+                    dept_id = Department.objects.get(code=value).id
                     if(dept_id == faculty.entity_object_id):
-                        updated_queryset |= FacultyMember.objects.filter(id=faculty.id)
-                
-                except:
+                        updated_queryset |= FacultyMember.objects.filter(
+                            id=faculty.id)
+
+                except BaseException:
                     continue
-        
+
         return updated_queryset
