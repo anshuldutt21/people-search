@@ -116,5 +116,9 @@ class StudentSerializer(serializers.ModelSerializer):
             'mobile_number',
             'room_no_information',
             'bhawan_information',
-            'display_picture'
+            'display_picture',
+            'primary_email_id',
+            'primary_mobile_no',
+            'room_no',
+            'bhawan'
         ]
