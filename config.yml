@@ -1,8 +1,8 @@
 nomenclature:
-  name: people_search
-  verboseName: People search
+    name: people_search
+    verboseName: People search
 description: An app for Omniport that does what apps do
 baseUrls:
-  http: people_search/
-  static: people_search/
+    http: people_search/
+    static: people_search/
 isApi: true

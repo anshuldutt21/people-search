@@ -1,3 +1,7 @@
 public_to_filters = (
-    ('all','All'),('students','All Students'),('faculty','All Faculty')
-                     )
+    ('all', 'All'),
+    ('students', 'Only Students'),
+    ('faculty', 'Only Faculty'),
+    ('branch', 'Only Branch'),
+    ('bhawan', 'Only Bhawan')
+)

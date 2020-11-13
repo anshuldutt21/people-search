@@ -17,7 +17,7 @@ Student = swapper.load_model('kernel', 'Student')
 BaseSerializer = switcher.load_serializer('kernel', 'Student')
 
 
-class StudentSerializer(serializers.ModelSerializer):
+class StudentDetailSerializer(serializers.ModelSerializer):
     """
     Serializer that serializes Student objects
     """
@@ -51,8 +51,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def get_email_address(self, instance):
         try:
-            if(has_email_permission(self.context['request'], instance)):
-                return instance.student.person.contact_information.get().email_address
+            return instance.student.person.contact_information.get().email_address
 
         except (ContactInformation.DoesNotExist, TypeError) as error:
             return None
@@ -73,8 +72,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def get_mobile_number(self, instance):
         try:
-            if(has_mobile_no_permission(self.context['request'], instance)):
-                return instance.student.person.contact_information.get().primary_phone_number
+            return instance.student.person.contact_information.get().primary_phone_number
 
         except (ContactInformation.DoesNotExist, TypeError) as error:
             return None
@@ -83,9 +81,8 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def get_room_no_information(self, instance):
         try:
-            if(has_room_no_permission(self.context['request'], instance)) and (has_bhawan_permission(self.context['request'], instance)):
-                return ResidentialInformation.objects.get(
-                    person=instance.student.person).room_number
+            return ResidentialInformation.objects.get(
+                person=instance.student.person).room_number
 
         except (ResidentialInformation.DoesNotExist, TypeError) as error:
             return None
@@ -94,9 +91,8 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def get_bhawan_information(self, instance):
         try:
-            if(has_bhawan_permission(self.context['request'], instance)):
-                return ResidentialInformation.objects.get(
-                    person=instance.student.person).residence.name
+            return ResidentialInformation.objects.get(
+                person=instance.student.person).residence.name
 
         except (ResidentialInformation.DoesNotExist, TypeError) as error:
             return None
@@ -116,9 +112,5 @@ class StudentSerializer(serializers.ModelSerializer):
             'mobile_number',
             'room_no_information',
             'bhawan_information',
-            'display_picture',
-            'primary_email_id',
-            'primary_mobile_no',
-            'room_no',
-            'bhawan'
+            'display_picture'
         ]
